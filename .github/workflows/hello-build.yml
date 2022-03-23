@@ -50,7 +50,6 @@ jobs:
           pwd
           docker build  -f services/hello-endpoint/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:latest services/hello-endpoint/
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
 
       - name: Deploy hello new image
