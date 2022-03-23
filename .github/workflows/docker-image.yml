@@ -54,7 +54,7 @@ jobs:
           
       - name: Getting hello task definition
         run: |
-          aws ecs describe-task-definition --task-definition hello-ecs-task --query taskDefinition > task-definition.json
+          aws ecs describe-task-definition --task-definition hello-task --query taskDefinition > task-definition.json
           cat task-definition.json
           pwd
           
