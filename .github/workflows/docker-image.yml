@@ -49,8 +49,8 @@ jobs:
         run: |
           pwd
           docker build  -f services/hello-endpoint/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY_HELLO:latest services/hello-endpoint/
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_HELLO:latest
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY_HELLO:$IMAGE_TAG"
           
       - name: Getting hello task definition
         run: |
