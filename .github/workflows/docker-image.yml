@@ -47,9 +47,11 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          pwd
           docker build  -f Dockerfile  -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          
       - name: Getting hello task definition
         run: |
           aws ecs describe-task-definition --task-definition hello-ecs-task --query taskDefinition > task-definition.json
