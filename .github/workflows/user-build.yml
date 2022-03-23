@@ -12,14 +12,13 @@ on:
         description: Environment to use (dev/qa) 
 
 env:
-  AWS_REGION: us-east-1                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: hello           # set this to your Amazon ECR repository name
-  ECS_SERVICE: hello-ecs-service                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: temp-cluster              # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: task-definition.json # set this to the path to your Amazon ECS task definition
-                                               # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: hello-container           # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
+  AWS_REGION: us-east-1                   
+  ECR_REPOSITORY: user           
+  ECS_SERVICE: user-ecs-service                 
+  ECS_CLUSTER: temp-cluster              
+  ECS_TASK_DEFINITION: task-definition.json 
+  CONTAINER_NAME: user-container           
+                                               
 jobs:
   deploy:
     name: Build image
@@ -48,13 +47,13 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           pwd
-          docker build  -f services/hello-endpoint/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:latest services/hello-endpoint/
+          docker build  -f services/user-endpoint/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:latest services/user-endpoint/
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           
-      - name: Getting hello task definition
+      - name: Getting user task definition
         run: |
-          aws ecs describe-task-definition --task-definition hello-task --query taskDefinition > task-definition.json
+          aws ecs describe-task-definition --task-definition user-task --query taskDefinition > task-definition.json
           cat task-definition.json
           pwd
           
